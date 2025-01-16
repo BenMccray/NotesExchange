@@ -3,12 +3,12 @@ import { authMiddleware } from "../middlewares/authMiddleware";
 
 export const getUserGroups = async (req, res) => {
     authMiddleware(req, res, async () => {
-        const { user } = req.user;
+        const { userId } = req.params;
         try {
             const [ rows, _ ] = await pool.execute(
                 "SELECT * FROM groups g\
                 JOIN user_to_groups utg ON utg.group_id = g.id\
-                WHERE utg.user_id = ?", [user.id]
+                WHERE utg.user_id = ?", [userId]
             );
             if (rows.length > 0) {
                 res.status(200).json(rows);

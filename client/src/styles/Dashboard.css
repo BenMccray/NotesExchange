@@ -1,0 +1,27 @@
+body {
+    background-color: white;
+    background-image: none;
+}
+
+.content-wrapper {
+    width: calc(86vw - 2rem);
+    background-image: linear-gradient(to bottom right, #20122c , #4b4352);
+    border-radius: 14px;
+    height: 92vh;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 92vh;
+    margin-top: 0;
+    margin-right: 2rem;
+}
+
+.dash-content {
+    background-color: white;
+    height: calc(100% - 2rem);
+    width: calc(86vw - 4rem);
+    margin: 1rem;
+    border: 1 solid black;
+    border-radius: 10px;
+}

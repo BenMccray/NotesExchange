@@ -1,13 +1,13 @@
-import {createUser, findUserByEmail} from "../models/userModel";
-import { generateToken } from "../utils/generateToken";
-import {verifyPassword} from "../utils/verifyPassword"
-import bcrypt from "bcrypt";
-import pool from "../config/db"
+import {createUser, findUserByEmail} from "../models/userModel.js";
+import generateToken from "../utils/generateToken.js";
+import verifyPassword from "../utils/verifyPassword.js"
+import * as bcrypt from "bcrypt";
+import {pool} from "../config/db.js"
 
 export const register = async (req, res) => {
-    const {email, password} = req.body;
-
+    const {displayName, email, password} = req.body;
     try {
+        console.log("here")
         const existingUser = await findUserByEmail(email);
         if (existingUser) {
             return res.status(400).json(
@@ -18,12 +18,17 @@ export const register = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await createUser(email, hashedPassword);
+        const user = await createUser(displayName, email, hashedPassword);
 
         res.status(201).json(
             {
                 message: "User registered successfully",
-                token: generateToken(user.insertId)
+                token: generateToken(user.insertId, email, displayName),
+                user: {
+                    userId: user.insertId,
+                    userEmail: email,
+                    displayName: displayName
+                }
             }
         );
     } catch (err) {
@@ -36,7 +41,7 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-    const {email, password} = req.body;
+    const {email, password} = req.query;
 
     try {
         const existingUser = await findUserByEmail(email);
@@ -49,10 +54,9 @@ export const login = async (req, res) => {
         };
 
         // should only be 1 row
-        const [rows] = pool.execute("SELECT id, password FROM users WHERE email = ?",
-            [email]
-        )
-        const isMatch = verifyPassword(password, rows[0].password);
+        const user = await findUserByEmail(email);
+        const {id, display_name: displayName, password: hashedPassword, _} = user
+        const isMatch = verifyPassword(password, hashedPassword);
 
         if (!isMatch) {
             return res.status(400).json(
@@ -64,7 +68,12 @@ export const login = async (req, res) => {
         res.status(200).json(
             {
                 message: "User signed in",
-                token: generateToken(rows[0].id)
+                token: generateToken(id, email, displayName),
+                user: {
+                    userId: id,
+                    userEmail: email,
+                    displayName: displayName
+                }
             }
         )
 

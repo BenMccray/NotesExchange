@@ -1,16 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "../styles/TopNav.css"
+import NavLink from '../components/NavLink';
 
 const TopNav = () => {
     const [active, setActive] = useState()
   return (
     <nav className='nav-container'>
         <div className='navlinks'>
-            <a className='navlink'></a>
-            <a className='navlink'></a>
-            <a className='navlink'></a>
-            <a className='navlink'></a>
-
+            <NavLink text="Dashboard"/>
+            <NavLink text="Groups"/>
+            <NavLink text="Account"/>
         </div>
     </nav>
   )

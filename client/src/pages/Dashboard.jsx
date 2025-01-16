@@ -1,21 +1,24 @@
-import React from 'react'
-import Loading from "components/Loading"
+import React, {useState} from 'react'
+import LoadingCircle from "../components/LoadingCircle"
 import TopNav from '../layout/TopNav';
 import Sidebar from '../layout/Sidebar';
+import DashContent from "../layout/DashContent"
+import useAuthRedirect from '../hooks/useAuthRedirect';
 
 const Dashboard = () => {
-  const [loading, setLoading] = useState(true);
+  useAuthRedirect();
+  const [loading, setLoading] = useState(false);
   if (loading) {
-      return <Loading/>
+      return <LoadingCircle/>
   }
   return (
-    <>
+    <div style={{height: "100vh"}}>
       <TopNav/>
-      <div>
+      <div className='container'>
         <Sidebar/>
         <DashContent/>
       </div>
-    </>
+    </div>
   )
 };
 

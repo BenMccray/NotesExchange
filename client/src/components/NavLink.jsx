@@ -1,9 +1,10 @@
 import React from 'react'
 import {Link} from "react-router-dom"
+import "../styles/TopNav.css"
 
 const NavLink = ({text}) => {
   return (
-    <Link to={`/${text}`}>{text}</Link>
+    <Link className="link" to={`/${text.toLowerCase()}`}>{text}</Link>
   )
 }
 

@@ -1,6 +1,6 @@
-import getToken from '../utils/getToken';
+import getToken from '../utils/getToken.js';
 import jwt from "jsonwebtoken";
-import {jwtSecret} from "./config/dotenv"
+import {jwtSecret} from "./config/dotenv.js"
 
 export const authMiddleware = (req, res, next) => {
   const token = getToken(req);

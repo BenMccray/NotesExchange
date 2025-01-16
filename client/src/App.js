@@ -1,13 +1,22 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route, Switch } from 'react-router-dom';
-import {Login, Dashboard} from "./pages"
+import './styles/App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {Login, Dashboard, Register} from "./pages"
+import ProtectedRoute from './layout/ProtectedRoute';
 
 function App() {
   return (
     <Router>
       <Routes>
+      <Route 
+          path="/" 
+          element={
+            <ProtectedRoute>
+              <Dashboard/>
+            </ProtectedRoute> 
+          }/>
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/register" element={<Register/>}/>
+        
       </Routes>
     </Router>
   );

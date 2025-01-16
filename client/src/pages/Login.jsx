@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../utils/validation';
-import "./styles/Login.css"
+import "../styles/Login.css"
 import { loginUser } from '../services/authService';
 
 const Login = () => {
@@ -30,7 +30,7 @@ const Login = () => {
         // cache token to memory
         localStorage.setItem("jwtToken", response.data.token);
         // navigate to dashboard
-        navigate('/dashboard');
+        navigate('/');
       }
     } catch (error) {
       console.error('Login failed:', error.message);
@@ -47,7 +47,7 @@ const Login = () => {
   }
   return (
     <div style={{ 
-      backgroundImage:"linear-gradient(to bottom right, #0f0617 70% , #100817)",
+      backgroundImage:"linear-gradient(to bottom right, #0f0617 60% , #322a39)",
       height: '100vh',
       display: "flex",
       justifyContent: "center",
@@ -70,7 +70,7 @@ const Login = () => {
             <button className="sign" type="submit">Sign in</button>
         </form>
         <p className="signup">Don't have an account?
-          <a rel="noopener noreferrer" href="#" className=""> Sign up</a>
+          <a rel="noopener noreferrer" href="/register" className=""> Register</a>
         </p>
       </div>
     </div>
