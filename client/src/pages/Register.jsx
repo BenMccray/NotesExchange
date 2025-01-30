@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../utils/validation';
 import "../styles/Login.css"
 import { registerUser } from '../services/authService';
+import cacheValidAuth from '../utils/cacheValidAuth';
 
 const Register = () => {
     const [displayName, setDisplayName] = useState("");
@@ -28,8 +29,13 @@ const Register = () => {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
       if (response.status === 201) {
-        // cache token to memory
-        localStorage.setItem("jwtToken", response.data.token);
+        /* No longer needed, server response uses cookies to cache the token so front end won't see it 
+          cache token and user to memory
+          cacheValidAuth(response.data.token, JSON.stringify(response.data.user));
+        */
+        // can still cache id and displayName etc
+        localStorage.setItem("user", response.data.user)
+
         // navigate to dashboard
         navigate('/');
       }

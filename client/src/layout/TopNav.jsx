@@ -3,13 +3,12 @@ import "../styles/TopNav.css"
 import NavLink from '../components/NavLink';
 
 const TopNav = () => {
-    const [active, setActive] = useState()
   return (
     <nav className='nav-container'>
         <div className='navlinks'>
-            <NavLink text="Dashboard"/>
-            <NavLink text="Groups"/>
-            <NavLink text="Account"/>
+            <NavLink href="/" text="Dashboard"/>
+            <NavLink href="/chat" text="Groups"/>
+            <NavLink href="/account" text="Account"/>
         </div>
     </nav>
   )

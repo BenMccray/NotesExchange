@@ -20,13 +20,18 @@ export const register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await createUser(displayName, email, hashedPassword);
 
+        const jwtToken = generateToken(user.insertId, email, displayName)
+        res.cookie("jwtToken", jwtToken, 
+            { 
+                httpOnly: true, 
+                secure: true, 
+                sameSite: "strict" 
+            });
         res.status(201).json(
             {
                 message: "User registered successfully",
-                token: generateToken(user.insertId, email, displayName),
                 user: {
                     userId: user.insertId,
-                    userEmail: email,
                     displayName: displayName
                 }
             }
@@ -41,7 +46,7 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-    const {email, password} = req.query;
+    const {email, password} = req.body;
 
     try {
         const existingUser = await findUserByEmail(email);
@@ -65,13 +70,18 @@ export const login = async (req, res) => {
                 }
             )
         }
+        const jwtToken = generateToken(id, email, displayName)
+        res.cookie("jwtToken", jwtToken, 
+            { 
+                httpOnly: true, 
+                secure: true, 
+                sameSite: "strict" 
+            });
         res.status(200).json(
             {
                 message: "User signed in",
-                token: generateToken(id, email, displayName),
                 user: {
                     userId: id,
-                    userEmail: email,
                     displayName: displayName
                 }
             }

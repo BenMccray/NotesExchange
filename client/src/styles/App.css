@@ -1,3 +1,32 @@
 body {
     background-image: linear-gradient(to bottom right, #0f0617 60% , #322a39);
 }
+html, body {
+    height: 100vh;
+    margin: 0;
+    width: 100%;
+    overflow-x: hidden;
+
+}
+* {
+    box-sizing: border-box;
+}
+ 
+
+.content {
+    display: flex;
+    background-color: white;
+    height: 100%;
+    border: 1 solid black;
+    border-radius: 10px;
+}
+
+.content-wrapper {
+    margin-left: 10px;
+    flex-grow: 1;
+    background-image: linear-gradient(to bottom right, #20122c , #4b4352);
+    border-radius: 14px;
+    height: auto;
+    padding: 1rem;
+    overflow: auto;
+}
