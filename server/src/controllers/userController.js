@@ -1,8 +1,8 @@
 import pool from "../config/db";
-import { verifyReqUser } from "../middlewares/authMiddleware";
+import { verifyUser } from "../middlewares/authMiddleware";
 
 export const getUserGroups = async (req, res) => {
-    verifyReqUser(req, res, async () => {
+    verifyUser(req, res, async () => {
         const { userId } = req.params;
         try {
             const [ rows, _ ] = await pool.execute(

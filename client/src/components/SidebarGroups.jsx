@@ -13,9 +13,9 @@ const courses = [
 const SidebarGroups = () => {
   return (
     <div className='list-container'>
-        <h1>Groups</h1>
+        <h1>Classes</h1>
         <ul>
-          {courses.map(({title, color}) => <GroupLink id={69} title={title} color={color}/>)}
+          {courses.map(({title, color}, idx) => <GroupLink id={idx} title={title} color={color}/>)}
         </ul>
       </div>
   )

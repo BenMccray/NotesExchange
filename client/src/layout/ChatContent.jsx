@@ -2,9 +2,14 @@ import React, {useState, useEffect} from 'react'
 import LoadingCircle from '../components/LoadingCircle';
 import "../styles/App.css"
 import "../styles/Chat.css"
+import { useSocket } from '../hooks/useSocket';
+import { useParams } from 'react-router';
 
 const ChatContent = () => {
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const {chatId} = useParams();
+
+  const {messages, sendMessage} = useSocket(chatId);
   useEffect(() => {
     /**
      * Get data for different items in the dashboard content
@@ -31,10 +36,10 @@ const ChatContent = () => {
                 <div className='msg other-msg'><span className='msg-text'>hello</span></div>
                 <div className=' msg user-msg'><span className='msg-text'>hello back</span></div>
             </div>
-            <form className="chat-form-container" onSubmit={handleSend}>
+            <div className="chat-form-container">
                 <input className="msg-bar"/>
-                <button type="submit" className='send-btn'/>
-            </form>
+                <button onClick={handleSend} className='send-btn'/>
+            </div>
         </div>
     </div>
     

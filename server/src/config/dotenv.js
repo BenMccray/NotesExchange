@@ -16,5 +16,6 @@ export default {
         database: process.env.MYSQL_DATABASE,
     },
     jwtSecret: process.env.JWT_SECRET,
+    mongoEndpoint: process.env.MONGO_DB_ENDPOINT,
 };
 

@@ -1,6 +1,6 @@
-import {getReqToken, getSocketToken} from '../utils/getToken.js';
+import {getReqToken} from '../utils/getToken.js';
 import jwt from "jsonwebtoken";
-import {jwtSecret} from "./config/dotenv.js"
+import env from "../config/dotenv.js"
 
 export const verifyUser = (req, res, next) => {
   const token = getReqToken(req);
@@ -9,7 +9,7 @@ export const verifyUser = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, jwtSecret);
+    const decoded = jwt.verify(token, env.jwtSecret);
     req.user = decoded; // Attach user info to request object
     next();
   } catch (err) {
@@ -30,18 +30,3 @@ export const verifyUser = (req, res, next) => {
 };
   
 
-export const verifySocketUser = (socket, next) => {
-  const token = getSocketToken(socket);
-
-  if (!token) {
-    return next(new Error("Anthentication failed, no user token"))
-  }
-
-  try {
-    const decoded = jwt.verify(token, jwtSecret);
-    socket.user = decoded
-    next();
-  } catch (err) {
-    next(new Error("Unexpected error"));
-  }
-}

@@ -1,8 +1,7 @@
-import {createUser, findUserByEmail} from "../models/userModel.js";
+import {createUser, findUserByEmail} from "../services/userService.js";
 import generateToken from "../utils/generateToken.js";
 import verifyPassword from "../utils/verifyPassword.js"
 import * as bcrypt from "bcrypt";
-import {pool} from "../config/db.js"
 
 export const register = async (req, res) => {
     const {displayName, email, password} = req.body;

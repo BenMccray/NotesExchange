@@ -15,7 +15,7 @@ function App() {
           element={<MainComponents/>}
         >
           <Route index element={<Dashboard/>} />
-          <Route path="/chat" element={<Chat/>} />
+          <Route path="/chat/:chatId" element={<Chat/>} />
         </Route>
 
         <Route path="/login" element={<Login />} />
