@@ -1,5 +1,7 @@
 {
+    "name": "server",
     "scripts" : {
         "start" : "nodemon /src/server.js"
-    }
+    },
+    "type": "module"
 }

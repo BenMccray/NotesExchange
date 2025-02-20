@@ -4,24 +4,27 @@ import {Login, Dashboard, Register, Chat} from "./pages"
 import ProtectedRoute from './layout/ProtectedRoute';
 import TopNav from './layout/TopNav';
 import Sidebar from './layout/Sidebar';
-import ChatContent from './layout/ChatContent';
-
+import { SocketProvider } from './contexts/SocketContext';
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route 
-          path="/"
-          element={<MainComponents/>}
-        >
-          <Route index element={<Dashboard/>} />
-          <Route path="/chat/:chatId" element={<Chat/>} />
-        </Route>
+    <SocketProvider>
+      <Router>
+        <Routes>
+          
+          <Route 
+            path="/"
+            element={<MainComponents/>}
+          >
+            <Route index element={<Dashboard/>} />
+            <Route path="/chat/:chatId" element={<Chat/>} />
+          </Route>
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register/>}/>
-      </Routes>
-    </Router>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register/>}/>
+        </Routes>
+      </Router>
+    </SocketProvider>
+
   );
 }
 

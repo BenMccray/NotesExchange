@@ -6,26 +6,31 @@ import {verifySocketUser} from "../middlewares/socketMiddleware.js"
  */
 export const initSocket = (server) => {
 
+    console.log("Initializing server socket...")
     const io = new Server(server, {
-        path: "/chat",
         cors: {
-            origin: "http://localhost:3000", // might be wrong, test and drop "/chat"
+            origin: "http://localhost:3000", 
             methods: ["GET", "POST"],
-            credentials: true
-        }
+            credentials: true,
+            
+        },
+        allowEIO3: true,
+        transports: ["websocket"]
     });
-
     io.use(verifySocketUser);
 
     io.on("connection", (socket) => {
-        const chatId = socket.handshake.query.chatId
+        // const chatId = socket.handshake.query.chatId
         console.log("User connected to socket", socket.user)
-        socket.join(chatId);
-        console.log(`Room ${chatId} joined`);
-
-        socket.on("message", ({chatId, message}) => {
-            io.to(chatId).emit("message", message)
+        socket.on("joinRoom", (chatId) => {
+            socket.join(chatId)
+            console.log(`Room ${chatId} joined`);
         })
+        
+
+        // socket.on("message", ({chatId, message}) => {
+        //     io.to(chatId).emit("message", message)
+        // })
 
         socket.on("disconnect", () => {
             console.log("socket disconnected")

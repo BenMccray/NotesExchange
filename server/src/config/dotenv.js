@@ -8,7 +8,7 @@ if (result.error) {
 }
 
 export default {
-    port: process.env.PORT || 8347,
+    port: process.env.PORT || 8080,
     db: {
         host: process.env.MYSQL_HOST,
         user: process.env.MYSQL_USER,
@@ -16,6 +16,6 @@ export default {
         database: process.env.MYSQL_DATABASE,
     },
     jwtSecret: process.env.JWT_SECRET,
-    mongoEndpoint: process.env.MONGO_DB_ENDPOINT,
+    mongoURI: process.env.MONGO_URI,
 };
 

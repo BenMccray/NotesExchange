@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../utils/validation';
 import "../styles/Login.css"
 import { loginUser } from '../services/authService';
-import cacheValidAuth from '../utils/cacheValidAuth';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +33,8 @@ const Login = () => {
           cacheValidAuth(response.data.token, JSON.stringify(response.data.user));
         */
         // we can cache the user Id however for requests later on
-        localStorage.setItem("user", response.data.user)
+        localStorage.setItem("user", JSON.stringify(response.data.user))
+        console.log(document.cookie)
         // navigate to dashboard
         navigate('/');
       }
@@ -70,7 +70,7 @@ const Login = () => {
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} placeholder=""/>
             <div className="forgot">
-              <a rel="noopener noreferrer" href="#">Forgot Password ?</a>
+              <a rel="noopener noreferrer" href="./">Forgot Password ?</a>
             </div>
           </div>
             <button className="sign" type="submit">Sign in</button>

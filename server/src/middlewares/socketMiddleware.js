@@ -4,6 +4,7 @@ import env from "../config/dotenv.js"
 
 export const verifySocketUser = (socket, next) => {
     const token = getSocketCookie(socket);
+    console.log(token)
   
     if (!token) {
       return next(new Error("Anthentication failed, no user token"))

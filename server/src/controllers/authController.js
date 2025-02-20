@@ -23,8 +23,8 @@ export const register = async (req, res) => {
         res.cookie("jwtToken", jwtToken, 
             { 
                 httpOnly: true, 
-                secure: true, 
-                sameSite: "strict" 
+                // secure: true, 
+                sameSite: "Lax" 
             });
         res.status(201).json(
             {
@@ -73,8 +73,8 @@ export const login = async (req, res) => {
         res.cookie("jwtToken", jwtToken, 
             { 
                 httpOnly: true, 
-                secure: true, 
-                sameSite: "strict" 
+                // secure: true, 
+                sameSite: "Lax" 
             });
         res.status(200).json(
             {
